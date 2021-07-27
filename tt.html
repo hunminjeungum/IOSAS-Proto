@@ -1,212 +1,214 @@
-<DOCTYPE html>
-    <html>
-        <head>
-            <title>tt</title>
-        </head>
-        <body>
-            <style type="text/css">
-                *, *:before, *:after {
-                  box-sizing: border-box;
-                  margin: 0;
-                  padding: 0;
-                }
-                
-                html, body {
-                  height: 100%;
-                }
-                
-                body:before, body:after {
-                  content: "";
-                  display: block;
-                  height: 50%;
-                }
-                body:after {
-                }
-                
-                /* MAIN VARIABLES FOR CUSTOMIZATION */
-                /* -------------------------------- */
-                .nav {
-                  overflow: hidden;
-                  position: absolute;
-                  left: 50%;
-                  top: 50%;
-                  width: auto;
-                  height: 90px;
-                  margin-top: -45px;
-                  background: #fff;
-                  border-radius: 5px;
-                  -webkit-transform: translate3d(-50%, 0, 0);
-                          transform: translate3d(-50%, 0, 0);
-                  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.2);
-                }
-                .nav__cb {
-                  z-index: -1000;
-                  position: absolute;
-                  left: 0;
-                  top: 0;
-                  opacity: 0;
-                  pointer-events: none;
-                }
-                .nav__content {
-                  position: relative;
-                  width: 90px;
-                  height: 100%;
-                  -webkit-transition: width 1s (0.49, -0.3, 0.68, 1.23);
-                  transition: width 1s cubic-bezier(0.49, -0.3, 0.68, 1.23);
-                }
-                .nav__cb:checked ~ .nav__content {
-                  -webkit-transition: width 1s cubic-bezier(0.48, 0.43, 0.29, 1.3);
-                  transition: width 1s cubic-bezier(0.48, 0.43, 0.29, 1.3);
-                  width: 410px;
-                }
-                .nav__items {
-                  position: relative;
-                  width: 410px;
-                  height: 140px;
-                  padding-left: 20px;
-                  padding-right: 110px;
-                  list-style-type: none;
-                  font-size: 0;
-                }
-                .nav__item {
-                  display: inline-block;
-                  vertical-align: top;
-                  width: 70px;
-                  text-align: center;
-                  color: #6C7784;
-                  font-size: 14px;
-                  line-height: 90px;
-                  font-family: Helvetica, Arial, sans-serif;
-                  font-weight: bold;
-                  -webkit-perspective: 1000px;
-                          perspective: 1000px;
-                  -webkit-transition: color 0.3s;
-                  transition: color 0.3s;
-                  cursor: pointer;
-                }
-                .nav__item:hover {
-                  color: #00bdea;
-                }
-                .nav__item-text {
-                  display: block;
-                  height: 100%;
-                  -webkit-transform: rotateY(-70deg);
-                          transform: rotateY(-70deg);
-                  opacity: 0;
-                  -webkit-transition: opacity 0.7s, -webkit-transform 0.7s cubic-bezier(0.48, 0.43, 0.7, 2.5);
-                  transition: opacity 0.7s, -webkit-transform 0.7s cubic-bezier(0.48, 0.43, 0.7, 2.5);
-                  transition: transform 0.7s cubic-bezier(0.48, 0.43, 0.7, 2.5), opacity 0.7s;
-                  transition: transform 0.7s cubic-bezier(0.48, 0.43, 0.7, 2.5), opacity 0.7s, -webkit-transform 0.7s cubic-bezier(0.48, 0.43, 0.7, 2.5);
-                }
-                .nav__cb:checked ~ .nav__content .nav__item-text {
-                  -webkit-transform: rotateY(0);
-                          transform: rotateY(0);
-                  opacity: 1;
-                  -webkit-transition: opacity 0.2s, -webkit-transform 0.7s cubic-bezier(0.48, 0.43, 0.7, 2.5);
-                  transition: opacity 0.2s, -webkit-transform 0.7s cubic-bezier(0.48, 0.43, 0.7, 2.5);
-                  transition: transform 0.7s cubic-bezier(0.48, 0.43, 0.7, 2.5), opacity 0.2s;
-                  transition: transform 0.7s cubic-bezier(0.48, 0.43, 0.7, 2.5), opacity 0.2s, -webkit-transform 0.7s cubic-bezier(0.48, 0.43, 0.7, 2.5);
-                }
-                .nav__item:nth-child(1) .nav__item-text {
-                  -webkit-transition-delay: 0.3s;
-                          transition-delay: 0.3s;
-                }
-                .nav__cb:checked ~ .nav__content .nav__item:nth-child(1) .nav__item-text {
-                  -webkit-transition-delay: 0s;
-                          transition-delay: 0s;
-                }
-                .nav__item:nth-child(2) .nav__item-text {
-                  -webkit-transition-delay: 0.2s;
-                          transition-delay: 0.2s;
-                }
-                .nav__cb:checked ~ .nav__content .nav__item:nth-child(2) .nav__item-text {
-                  -webkit-transition-delay: 0.1s;
-                          transition-delay: 0.1s;
-                }
-                .nav__item:nth-child(3) .nav__item-text {
-                  -webkit-transition-delay: 0.1s;
-                          transition-delay: 0.1s;
-                }
-                .nav__cb:checked ~ .nav__content .nav__item:nth-child(3) .nav__item-text {
-                  -webkit-transition-delay: 0.2s;
-                          transition-delay: 0.2s;
-                }
-                .nav__item:nth-child(4) .nav__item-text {
-                  -webkit-transition-delay: 0s;
-                          transition-delay: 0s;
-                }
-                .nav__cb:checked ~ .nav__content .nav__item:nth-child(4) .nav__item-text {
-                  -webkit-transition-delay: 0.3s;
-                          transition-delay: 0.3s;
-                }
-                .nav__btn {
-                  position: absolute;
-                  right: 0;
-                  top: 0;
-                  width: 90px;
-                  height: 100%;
-                  padding: 36px 31px;
-                  cursor: pointer;
-                }
-                .nav__btn:before, .nav__btn:after {
-                  content: "";
-                  display: block;
-                  width: 28px;
-                  height: 4px;
-                  border-radius: 2px;
-                  background: #096DD3;
-                  -webkit-transform-origin: 50% 50%;
-                          transform-origin: 50% 50%;
-                  -webkit-transition: background-color 0.3s, -webkit-transform 1s cubic-bezier(0.48, 0.43, 0.29, 1.3);
-                  transition: background-color 0.3s, -webkit-transform 1s cubic-bezier(0.48, 0.43, 0.29, 1.3);
-                  transition: transform 1s cubic-bezier(0.48, 0.43, 0.29, 1.3), background-color 0.3s;
-                  transition: transform 1s cubic-bezier(0.48, 0.43, 0.29, 1.3), background-color 0.3s, -webkit-transform 1s cubic-bezier(0.48, 0.43, 0.29, 1.3);
-                }
-                .nav__btn:before {
-                  margin-bottom: 10px;
-                }
-                .nav__btn:hover:before, .nav__btn:hover:after {
-                  background: #00bdea;
-                }
-                .nav__cb:checked ~ .nav__btn:before {
-                  -webkit-transform: translateY(7px) rotate(-225deg);
-                          transform: translateY(7px) rotate(-225deg);
-                }
-                .nav__cb:checked ~ .nav__btn:after {
-                  -webkit-transform: translateY(-7px) rotate(225deg);
-                          transform: translateY(-7px) rotate(225deg);
-                }
-                
-                </style>
-                </head>
-                <body>
-                <nav class="nav">
-                  <input type="checkbox" class="nav__cb" id="menu-cb"/>
-                  <div class="nav__content">
-                    <ul class="nav__items">
-                      <li class="nav__item">
-                        <span class="nav__item-text">
-                          Home
-                        </span>
-                      </li>
-                      <li class="nav__item">
-                        <span class="nav__item-text">
-                          Works
-                        </span>
-                      </li>
-                      <li class="nav__item">
-                        <span class="nav__item-text">
-                          About
-                        </span>
-                      </li>
-                      <li class="nav__item">
-                        <span class="nav__item-text">
-                          Contact
-                        </span>
-                      </li>
-                    </ul>
-                  </div>
-                  <label class="nav__btn" for="menu-cb"></label>
-                </nav>
-            
-    </html>
+<!doctype html>
+<html lang="kr">
+	<head>
+	<meta charset="UTF-8">
+	<title>tt</title>
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<style type="text/css">
+input[type="checkbox"]#menu_state {
+  display: none;
+}
+input[type="checkbox"]:checked ~ nav {
+  width: 250px;
+}
+input[type="checkbox"]:checked ~ nav label[for="menu_state"] i::before {
+  content: "\f053";
+}
+input[type="checkbox"]:checked ~ nav ul {
+  width: 100%;
+}
+input[type="checkbox"]:checked ~ nav ul li a i {
+  border-right: 1px solid #2f343e;
+}
+input[type="checkbox"]:checked ~ nav ul li a span {
+  opacity: 1;
+  transition: opacity 0.25s ease-in-out;
+}
+input[type="checkbox"]:checked ~ main {
+  left: 250px;
+}
+nav {
+  position: fixed;
+  z-index: 9;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  background: #383e49;
+  color: #9aa3a8;
+  width: 50px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: lighter;
+  transition: all 0.15s ease-in-out;
+}
+nav label[for="menu_state"] i {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  right: -8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  background: #fff;
+  font-size: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  border: 1px solid #ddd;
+  transition: width 0.15s ease-in-out;
+  z-index: 1;
+}
+nav label[for="menu_state"] i::before {
+  margin-top: 2px;
+  content: "\f054";
+}
+nav label[for="menu_state"] i:hover {
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+nav ul {
+  overflow: hidden;
+  display: block;
+  width: 50px;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+nav ul li {
+  border: 1px solid #2f343e;
+  position: relative;
+}
+nav ul li.unread:after {
+  content: attr(data-content);
+  position: absolute;
+  top: 10px;
+  left: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  color: #fff;
+  background: #ef5952;
+  font-size: 8px;
+}
+nav ul li:not(:last-child) {
+  border-bottom: none;
+}
+nav ul li.active a {
+  background: #4c515d;
+  color: #fff;
+}
+nav ul li a {
+  position: relative;
+  display: block;
+  white-space: nowrap;
+  text-decoration: none;
+  color: #9aa3a8;
+  height: 50px;
+  width: 100%;
+  transition: all 0.15s ease-in-out;
+}
+nav ul li a:hover {
+  background: #4c515d;
+  color: #fff;
+}
+nav ul li a * {
+  height: 100%;
+  display: inline-block;
+}
+nav ul li a i {
+  text-align: center;
+  width: 50px;
+  z-index: 999999;
+}
+nav ul li a i.fa {
+  line-height: 50px;
+}
+nav ul li a span {
+  padding-left: 25px;
+  opacity: 0;
+  line-height: 50px;
+  transition: opacity 0.1s ease-in-out;
+}
+main {
+  position: absolute;
+  transition: all 0.15s ease-in-out;
+  top: 0;
+  left: 50px;
+}
+main header {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 400px;
+  background: url("http://www.blueb.co.kr/SRC2/_image/01.jpg");
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+}
+main section {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  background: #fff;
+  padding: 25px;
+  font-family: helvetica;
+  font-weight: lighter;
+  padding: 50px;
+  margin: 150px 75px;
+  transition: all 0.15s ease-in-out;
+}
+main section:hover {
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+main section h1 {
+  padding-top: 0;
+  margin-top: 0;
+  font-weight: lighter;
+}
+
+</style>
+</head>
+<body>
+<input type="checkbox" id="menu_state" checked>
+<nav>
+	<label for="menu_state"><i class="fa"></i></label>
+	<ul>
+		<li data-content="5" class="active unread">
+			<a href="javascript:void(0)">
+				<i class="fa fa-inbox"></i>
+				<span>Inbox</span>
+			</a>
+		</li>
+		<li>
+			<a href="javascript:void(0)">
+				<i class="fa fa-heart"></i>
+				<span>Favorites</span>
+			</a>
+		</li>
+		<li>
+			<a href="javascript:void(0)">
+				<i class="fa fa-paper-plane"></i>
+				<span>Sent</span>
+			</a>
+		</li>
+		<li>
+			<a href="javascript:void(0)">
+				<i class="fa fa-pencil"></i>
+				<span>Draft</span>
+			</a>
+		</li>
+		<li data-content="2" class="unread">
+			<a href="javascript:void(0)">
+				<i class="fa fa-trash"></i>
+				<span>Trash</span>
+			</a>
+		</li>
+	</ul>
+</nav>
+<main>
+	<iframe src="https://www.ebsoc.co.kr/" height="1000%" width="100%"></iframe>
+</main>
+</body>
+</html>
